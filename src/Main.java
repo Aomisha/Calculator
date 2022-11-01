@@ -8,25 +8,25 @@ public class Main {
 
     public static String calc(String input){
         String result = null;
-        String[] teil = input.split(" ");
-        int count = 0;
+        String[] teil = input.split(" ");   //Записываем в массив все элеменеты с консоли после пробела
+        int count = 0;                     //Счетчик для проверки знаков с консоли
         for (int i = 0; i < teil.length; i++) {
-            count++;
+            count++;                                //Если count==1 значит это не мат операция, если больше 3, то тоже нам не подходит
         }
         if(count == 1){
             throw new RuntimeException("Не математическая операция");
         }   else if(count == 3){
             String operat = teil[1];
-            if(isRom(teil[0])==isRom(teil[2])){
+            if(isRom(teil[0])==isRom(teil[2])){         //Проверяем, в одном ли формате числа из консоли
                 int firstNum;
                 int secondNum;
-                char op = operat.charAt(0);
-                boolean yorn = isRom(teil[0]);
-                if(yorn){
+                char op = operat.charAt(0); //
+                boolean yorn = isRom(teil[0]);      //Проверяем римские ли цифры 
+                if(yorn){                                   //если римские, то через метод конвертируем их в инт через метод
                     firstNum = convertRomToInt(teil[0]);
                     secondNum = convertRomToInt(teil[2]);
-                } else{
-                    if(isOneToTen(teil[0]) == isOneToTen(teil[2])){
+                } else{                                         //если арабские, то парсим без метода
+                    if(isOneToTen(teil[0]) == isOneToTen(teil[2])){     //проверяем, является ли число от 1 до 10, если нет - ошибка
                         firstNum = Integer.parseInt(teil[0]);
                         secondNum = Integer.parseInt(teil[2]);
                     }   else {
@@ -55,12 +55,12 @@ public class Main {
                     default:
                         System.out.println("Не правильная операция");
                 }
-                if(yorn){
+                if(yorn){                       //Если римские, то выводим результат, переводя int в String, перед этим проверив, не является ли число 0, т.к в римских числах нет нуля
                     if(resultat < 0){
                         throw new RuntimeException("В римском счислении нет отрицательных чисел");
                     }
                     result = numToRom(resultat);
-                } else{
+                } else{                                 //если арабские, то просто парсируем в String
                     result = Integer.toString(resultat);
                 }
 
@@ -74,7 +74,7 @@ public class Main {
         return result;
     }
 
-    static boolean isOneToTen(String num){
+    static boolean isOneToTen(String num){      //Метод для проверки числа от 1 до 10
         if(num.equals("1")){
             return true;
         } else if(num.equals("2")){
@@ -100,7 +100,7 @@ public class Main {
         }
     }
 
-    static int convertRomToInt(String num){
+    static int convertRomToInt(String num){             //Метод для конверта из римских чисел в арабские в тип int
         int number = 0;
         if(num.equals("I")){
             return number = 1;
@@ -126,7 +126,7 @@ public class Main {
         return number;
     }
 
-    static boolean isRom(String num){
+    static boolean isRom(String num){               //проверяем, является ли число римским
         if(num.equals("I")){
             return true;
         } else if(num.equals("II")){
@@ -152,12 +152,12 @@ public class Main {
         }
     }
 
-    static int strToNum(String num){
+    static int strToNum(String num){                //Метод для перевода числа из String в int 
         int number = Integer.parseInt(num);
         return number;
     }
-
-    static String numToRom(int num){
+    
+    static String numToRom(int num){                                                                        //Метод для перевода конечного результата в римскую цифру
         String[] romNum = {"O", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
                 "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX",
                 "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX",
@@ -174,7 +174,7 @@ public class Main {
         return answer;
     }
 
-    static boolean numIndeticalOrNo(String check){
+    static boolean numIndeticalOrNo(String check){                  //проверяем, являются ли числа одного формата
         boolean ans;
         if(check.equals("1") || check.equals("I")){
             return ans = true;
